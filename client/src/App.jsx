@@ -7,11 +7,14 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+
 const App = () => {
   return (
     <BrowserRouter>
-    {/* to have this in all pages, we will put this header inside the browerRouter */}
-    <Header/>
+      {/* to have this in all pages, we will put this header inside the browerRouter */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -21,6 +24,7 @@ const App = () => {
         <Route path="/projects" element={<Projects />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

@@ -36,7 +36,7 @@ const SignIn = () => {
       // setLoading(true);
       // setErrorMessage(null);
       //now here instead of the above logic we use signInStart
-      dispatch(signInStart);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         body: JSON.stringify(formData),

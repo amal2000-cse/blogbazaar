@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import { signInFailure, signInStart, signInSucces } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 //in order to use the signInFailure and others we need to dispatch them first
 const SignIn = () => {
@@ -121,6 +122,8 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
+
+            <OAuth/>
           </form>
 
           <div className="flex gap-2 text-sm mt-5">

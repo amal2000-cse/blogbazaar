@@ -17,12 +17,14 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
-  signoutSuccess
+  signoutSuccess,
 } from "../redux/user/userSlice";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
 
 const DashProfile = () => {
-  const { currentUser,error } = useSelector((state) => state.user);
+  const { currentUser, error ,loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadingProgress, setImageFileUploadingProgress] =
@@ -148,13 +150,12 @@ const DashProfile = () => {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
-        
       });
 
       const data = await res.json();
-      if(!res.ok){
+      if (!res.ok) {
         dispatch(deleteUserFailure(data.message));
-      }else{
+      } else {
         dispatch(deleteUserSuccess(data));
       }
     } catch (error) {
@@ -163,24 +164,22 @@ const DashProfile = () => {
   };
 
   //functino for signout
-  const handleSignOut=async()=>{
+  const handleSignOut = async () => {
     try {
-      const res = await fetch('/api/user/signout',{
-        method: 'POST',
-        
-      })
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
 
-      const data= await res.json();
-      if(!res.ok){
+      const data = await res.json();
+      if (!res.ok) {
         console.log(data.error);
-      }else{
+      } else {
         dispatch(signoutSuccess());
       }
     } catch (error) {
-      console.log(error.message)
-      
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
@@ -254,16 +253,31 @@ const DashProfile = () => {
           placeholder="password"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button type="submit" gradientDuoTone="purpleToBlue" outline
+        disabled={loading || imageFileUploading}>
+          {loading ? 'Loading...' : 'Update' }
         </Button>
+
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
 
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModel(true)} className="cursor-pointer">
           Delete Account
         </span>
-        <span onClick={handleSignOut} className="cursor-pointer">Sign Out</span>
+        <span onClick={handleSignOut} className="cursor-pointer">
+          Sign Out
+        </span>
       </div>
 
       {updateUserSuccess && (
@@ -278,7 +292,7 @@ const DashProfile = () => {
         </Alert>
       )}
 
-       {/* {error && (
+      {/* {error && (
         <Alert color="failure" className="mt-5">
           {error}
         </Alert>

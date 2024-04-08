@@ -16,24 +16,22 @@ const Header = () => {
   //here we want to know which theme we are using
   const { theme } = useSelector((state) => state.theme);
 
-  const handleSignOut=async()=>{
+  const handleSignOut = async () => {
     try {
-      const res = await fetch('/api/user/signout',{
-        method: 'POST',
-      })
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
 
       const data = await res.json();
-      if(!res.ok){
-        console.log(data.message);
-      }else{
+      if (!res.ok) {
+        console.log(data.error);
+      } else {
         dispatch(signoutSuccess());
       }
-      
     } catch (error) {
-      console.log(error)
-      
+      console.log(error.message);
     }
-  }
+  };
   return (
     <Navbar className="border-b-2">
       <Link

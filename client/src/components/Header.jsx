@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   //here we want to know which theme we are using
   const { theme } = useSelector((state) => state.theme);
+  const navigate = useNavigate(); // Define useNavigate hook
 
   const handleSignOut = async () => {
     try {
@@ -90,7 +91,7 @@ const Header = () => {
           </Dropdown>
         ) : (
           <Link to="/sign-in">
-            <Button gradientDuoTone='purpleToBlue' outline>
+            <Button gradientDuoTone="purpleToBlue" outline>
               Sign In
             </Button>
           </Link>

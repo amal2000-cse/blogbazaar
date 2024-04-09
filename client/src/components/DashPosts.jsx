@@ -1,5 +1,6 @@
-import { Table, TableHead, TableHeadCell } from "flowbite-react";
+import { Button, Modal, Table, TableHead, TableHeadCell } from "flowbite-react";
 import React, { useEffect, useState } from "react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -7,6 +8,10 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
+
+  //first we are creating a model, to ask user if they really want to delet that post
+  const [ShowModel, setShowModel] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState("");
 
   console.log(currentUser);
   console.log(userPosts);
@@ -45,8 +50,27 @@ const DashPosts = () => {
         }
       }
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
+  };
+
+  const handleDeletePost = async () => {
+    setShowModel(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        //now will be filter out the post that we have deleted from all the posts
+        setUserPosts((prev) => prev.filter((post) => post._id !== postIdToDelete));
+      }
+    } catch (error) {}
   };
 
   return (
@@ -96,6 +120,10 @@ const DashPosts = () => {
 
                   <Table.Cell>
                     <span
+                      onClick={() => {
+                        setShowModel(true);
+                        setPostIdToDelete(post._id);
+                      }}
                       className="font-medium text-red-500 hover:underline
                      cursor-pointer"
                     >
@@ -127,6 +155,34 @@ const DashPosts = () => {
       ) : (
         <p>You have no posts yet</p>
       )}
+
+      {/* this  is the code for the model */}
+      <Modal
+        show={ShowModel}
+        onClose={() => setShowModel(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this post?
+            </h3>
+
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={handleDeletePost}>
+                Yes, I'm sure
+              </Button>
+
+              <Button color="gray" onClick={() => setShowModel(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

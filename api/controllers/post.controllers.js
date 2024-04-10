@@ -41,7 +41,7 @@ export const getPosts = async (req, res, next) => {
       ...(req.query.userId && { userId: req.query.userId }),
       //if the search query has category
       ...(req.query.category && { category: req.query.category }),
-      ...(req.query.slug && { category: req.query.slug }),
+      ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.postId && { _id: req.query.postId }),
 
       //we want to search for both the title and the content of the posts

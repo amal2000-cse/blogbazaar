@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyToken } from '../utils/verifyUser.js';
-import { create, deletePost, getPosts } from '../controllers/post.controllers.js';
+import { create, deletePost, getPosts, updatepost } from '../controllers/post.controllers.js';
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.post('/create', verifyToken, create);
 //so we wont be veriying the user in this route
 router.get('/getposts', getPosts);
 router.delete('/deletepost/:postId/:userId', verifyToken , deletePost);
+
+//route for update post
+router.put('/updatepost/:postId/:userId', verifyToken , updatepost);
 
 export default  router;

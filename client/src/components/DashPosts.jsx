@@ -19,7 +19,7 @@ const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);

@@ -13,10 +13,14 @@ import CreatePost from "./pages/CreatePost";
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
     <BrowserRouter>
+    {/* for every page to be start from the top of the section- we add this component */}
+    <ScrollToTop/>
+
       {/* to have this in all pages, we will put this header inside the browerRouter */}
       <Header />
       <Routes>

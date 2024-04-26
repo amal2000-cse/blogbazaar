@@ -177,7 +177,7 @@ export default function CommentSection({ postId }) {
             </div>
           </div>
           {comments.map((comment) => {
-            console.log("Comment:", comment);
+            // console.log("Comment:", comment);
             return (
               <Comment
                 key={comment._id}

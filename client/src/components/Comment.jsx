@@ -9,7 +9,7 @@ const Comment = ({ comment, onLike, onEdit,onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedcontent, setEditedContent] = useState(comment.content);
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     const getUser = async () => {

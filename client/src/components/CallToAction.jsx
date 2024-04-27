@@ -8,9 +8,9 @@ const CallToAction = () => {
       <div className="flex-1 justify-center flex flex-col">
         <h2 className="text-2xl">JavaScript: Powering Interactive Web Experiences </h2>
         <p className="text-gray-500 my-2">
-          JavaScript, the backbone of modern web development, enables dynamic
+          {/* JavaScript, the backbone of modern web development, enables dynamic
           and engaging user interactions. From interactive forms to dynamic
-          content updates, JavaScript empowers developers to create immersive
+          content updates, JavaScript empowers developers to create immersive */}
           web experiences that captivate audiences worldwide.{" "}
         </p>
         <Button gradientDuoTone="purpleToPink" className="rounded-tl-xl rounded-bl-none mt-5">

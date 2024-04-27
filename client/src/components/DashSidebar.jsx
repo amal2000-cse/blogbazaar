@@ -3,6 +3,7 @@ import { Sidebar } from "flowbite-react";
 import {
   HiAnnotation,
   HiArrowRight,
+  HiChartPie,
   HiDocumentText,
   HiOutlineUserGroup,
   HiUser,
@@ -47,6 +48,20 @@ const DashSidebar = () => {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
+          {
+            currentUser && currentUser.isAdmin && (
+              <Link to='/dashboard?tab=dash'>
+                <Sidebar.Item
+                  active={tab === "dash" || !tab}
+                  icon={HiChartPie}
+                  labelColor="dark"
+                >
+                Dashboard              
+                </Sidebar.Item>
+
+              </Link>
+            )
+          }
           {/* Render HiUser icon as JSX element */}
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item

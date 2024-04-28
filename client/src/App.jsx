@@ -39,7 +39,6 @@ const App = () => {
         </Route>
         <Route path="/projects" element={<Projects />} />
         <Route path="/post/:postSlug" element={<PostPage />} />
-        <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
       <Footer />
     </BrowserRouter>
